@@ -21,7 +21,7 @@ public enum HomeCommand
 	Quit = 2,		// return to the Oculus home/dashboard app
 }*/
 
-public class Zurich_home : MonoBehaviour
+public class Zurich_btn : MonoBehaviour
 {
 	
 	public OVRCameraRig			cameraController = null;
@@ -40,16 +40,17 @@ public class Zurich_home : MonoBehaviour
 	
 	private AudioSource			audioEmitter = null;
 	private Renderer[]			renderers = new Renderer[0];
-	private HomeButton[]		buttons = new HomeButton[0];
+	//private HomeButton[]		buttons = new HomeButton[0];
+	private GameObject			button_;
 	private string				highLightPrefix = "_HL";
 	private string				selectPrefix = "_Select";
-	private HomeButton			activeButton = null;
-	private Animation			animator = null;
+	private GameObject			activeButton = null;
+	//private Animation			animator = null;
 	private bool				isVisible = false;
 	private bool				isShowingOrHiding = false;
 	//private bool				homeButtonPressed = false;
 	private float				homeButtonDownTime = 0.0f;
-	private HomeCommand			selectedCommand = HomeCommand.None;
+	//private HomeCommand			selectedCommand = HomeCommand.None;
 	public GameObject			videoscript;
 	
 	/// <summary>
@@ -57,6 +58,7 @@ public class Zurich_home : MonoBehaviour
 	/// </summary>
 	void Awake()
 	{
+		button_ = gameObject;
 		if (cameraController == null)
 		{
 			Debug.LogError("ERROR: Missing camera controller reference on " + name);
@@ -66,13 +68,13 @@ public class Zurich_home : MonoBehaviour
 		// gather up all the renderers ( even the deactivated ones )
 		renderers = GetComponentsInChildren<Renderer>(true);
 		// gather up all the buttons
-		buttons = GetComponentsInChildren<HomeButton>(true);
+		//buttons = GetComponentsInChildren<HomeButton>(true);
 		// set up the animations
-		animator = GetComponent<Animation>();
+		//animator = GetComponent<Animation>();
 		// set up the audio source
 		audioEmitter = GetComponent<AudioSource>();
 		// all idle and highlight anims go on layer 0 so that other anims can override them
-		foreach (AnimationState state in animator)
+		/*foreach (AnimationState state in animator)
 		{
 			if (state.name.ToLower().Contains(selectPrefix))
 			{
@@ -82,7 +84,7 @@ public class Zurich_home : MonoBehaviour
 			{
 				state.layer = 0;
 			}
-		}
+		}*/
 		// make show and hide layered over everything
 		//animator[ menuShowAnim ].layer = 2;
 		//animator[ menuHideAnim ].layer = 2;
@@ -277,9 +279,34 @@ public class Zurich_home : MonoBehaviour
 				Ray ray = new Ray(cameraController.centerEyeAnchor.position, cameraController.centerEyeAnchor.forward);
 				
 				// find the active button
-				HomeButton lastActiveButton = activeButton;
+				GameObject lastActiveButton = activeButton;
 				activeButton = null;
 				RaycastHit hit = new RaycastHit();
+
+				if (button_.GetComponent<Collider>().Raycast(ray, out hit, 100.0f)){
+					activeButton = button_;
+					if (activeButton != lastActiveButton)
+					{
+						// play highlight sound and anim
+						PlaySound(menuHighlightSound);
+						//PlayAnim(button_.name + highLightPrefix, true);
+						//GameObject.Find ("highlight_01");
+						
+						
+						Debug.Log("Click en  el boton" + button_);
+						
+						if (activeButton == button_) {
+							
+							//myObject.GetComponent<MyScript>().MyFunction();
+							Debug.Log ("le doy play al video");
+							//videoscript = button_.transform.FindChild("MovieSurface").gameObject;
+							videoscript.GetComponent<Zurich_MoviePlayer>().DelayedStartVideo();
+						} 
+					}
+					//break;
+				}
+
+				/*
 				for (int i = 0; i < buttons.Length; i++)
 				{
 					if (buttons[i].GetComponent<Collider>().Raycast(ray, out hit, 100.0f))
@@ -300,19 +327,19 @@ public class Zurich_home : MonoBehaviour
 								//myObject.GetComponent<MyScript>().MyFunction();
 								Debug.Log ("le doy play al video");
 								videoscript = buttons[i].transform.FindChild("MovieSurface").gameObject;
-								videoscript.GetComponent<MoviePlayerSample>().DelayedStartVideo();
+								videoscript.GetComponent<Zurich_MoviePlayer>().DelayedStartVideo();
 							} 
 						}
 						break;
 					}
-				}
+				}*/
 				if ((activeButton == null) && (lastActiveButton != null))
 				{
 					// return to idle anim (in our case the default anim clip)
 					//PlayAnim(menuIdleAnim, true);
 					//dejo de hacer foco en el boton
 					Debug.Log("Pongo en pausa");
-					videoscript.GetComponent<MoviePlayerSample>().videoPause();
+					videoscript.GetComponent<Zurich_MoviePlayer>().videoPause();
 				}
 				if (activeButton != null)
 				{
@@ -321,7 +348,7 @@ public class Zurich_home : MonoBehaviour
 					{
 						PlaySound(menuClickSound);
 						float delaySecs = PlayAnim(activeButton.name + selectPrefix) + 0.05f;
-						selectedCommand = activeButton.commandId;
+						//selectedCommand = activeButton.commandId;
 						// activate the menu item after the anim is done playing
 						Invoke("OnMenuItemPressed", delaySecs);
 					}
@@ -341,7 +368,7 @@ public class Zurich_home : MonoBehaviour
 	void OnMenuItemPressed()
 	{
 		bool immediate = false;
-		switch (selectedCommand)
+		/* (selectedCommand)
 		{
 		case HomeCommand.NewGame:
 			// TODO
@@ -358,7 +385,7 @@ public class Zurich_home : MonoBehaviour
 		default:
 			Debug.LogError("Unhandled home command: " + selectedCommand);
 			break;
-		}
+		}*/
 		// hide the menu
 		Show(false, immediate);
 	}
