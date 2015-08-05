@@ -58,6 +58,7 @@ public class Zurich_btn : MonoBehaviour
 	/// </summary>
 	void Awake()
 	{
+		showVideo (false);
 		button_ = gameObject;
 		if (cameraController == null)
 		{
@@ -95,6 +96,11 @@ public class Zurich_btn : MonoBehaviour
 	/// <summary>
 	/// Shows and hides the menu
 	/// </summary>
+
+	private void showVideo(bool toActive){
+		videoscript.SetActive (toActive);
+	}
+
 	float Show(bool show, bool immediate = false)
 	{
 		if ((show && isVisible) || (!show && !isVisible))
@@ -302,6 +308,7 @@ public class Zurich_btn : MonoBehaviour
 							//myObject.GetComponent<MyScript>().MyFunction();
 							Debug.Log ("le doy play al video");
 							//videoscript = button_.transform.FindChild("MovieSurface").gameObject;
+							showVideo (true);
 							videoscript.GetComponent<Zurich_MoviePlayer>().DelayedStartVideo();
 						} 
 					}
@@ -342,6 +349,7 @@ public class Zurich_btn : MonoBehaviour
 					//dejo de hacer foco en el boton
 					Debug.Log("Pongo en pausa");
 					videoscript.GetComponent<Zurich_MoviePlayer>().videoPause();
+					showVideo (false);
 				}
 				if (activeButton != null)
 				{
