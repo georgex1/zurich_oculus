@@ -110,8 +110,8 @@ public class Zurich_MoviePlayer : MonoBehaviour
 			} else {
 
 				#if (UNITY_ANDROID && !UNITY_EDITOR)
-					AndroidChangeVideo(videoName);
-					//mediaPlayer.Call("start");
+					//AndroidChangeVideo(videoName);
+					mediaPlayer.Call("start");
 				#endif
 
 			}
@@ -204,23 +204,23 @@ public class Zurich_MoviePlayer : MonoBehaviour
 		parms[0].l = androidSurface;
 		AndroidJNI.CallObjectMethod(mediaPlayer.GetRawObject(), setSurfaceMethodId, parms);
 
-		AndroidChangeVideo(videoName);
+		//AndroidChangeVideo(videoName);
 
-		/*mediaPlayer.Call("setDataSource", "/storage/extSdCard/Oculus/zurichvideos/" + videoName);
+		mediaPlayer.Call("setDataSource", "/storage/extSdCard/Oculus/zurichvideos/" + videoName);
 		mediaPlayer.Call("prepare");
 		mediaPlayer.Call("setLooping", false);
-		mediaPlayer.Call("start");*/
+		mediaPlayer.Call("start");
 
 		return mediaPlayer;
 	}
 
-	void AndroidChangeVideo( string videoName_ ){
+	/*void AndroidChangeVideo( string videoName_ ){
 		if (mediaPlayer != null){
 			mediaPlayer.Call("setDataSource", "/storage/extSdCard/Oculus/zurichvideos/" + videoName_);
 			mediaPlayer.Call("prepare");
 			mediaPlayer.Call("setLooping", false);
 			mediaPlayer.Call("start");
 		}
-	}
+	}*/
 #endif
 }
