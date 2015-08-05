@@ -309,8 +309,10 @@ public class Zurich_btn : MonoBehaviour
 							Debug.Log ("le doy play al video");
 							//videoscript = button_.transform.FindChild("MovieSurface").gameObject;
 							showVideo (true);
-							videoscript.GetComponent<Zurich_MoviePlayer>().DelayedStartVideo();
-						} 
+							if(videoscript.activeSelf){
+								videoscript.GetComponent<Zurich_MoviePlayer>().DelayedStartVideo();
+							}
+						}
 					}
 					//break;
 				}
@@ -348,7 +350,9 @@ public class Zurich_btn : MonoBehaviour
 					//PlayAnim(menuIdleAnim, true);
 					//dejo de hacer foco en el boton
 					Debug.Log("Pongo en pausa");
-					videoscript.GetComponent<Zurich_MoviePlayer>().videoPause();
+					if(videoscript.activeSelf){
+						videoscript.GetComponent<Zurich_MoviePlayer>().videoStop();
+					}
 					showVideo (false);
 				}
 				if (activeButton != null)

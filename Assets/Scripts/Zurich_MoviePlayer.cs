@@ -154,6 +154,20 @@ public class Zurich_MoviePlayer : MonoBehaviour
 		#endif
 	}
 
+	public void videoStop()
+	{
+		#if (UNITY_ANDROID && !UNITY_EDITOR)
+		if (mediaPlayer != null)
+		{
+			startedVideo = false;
+			mediaPlayer.Call("pause");
+
+			secondTime = false;
+			mediaPlayer = null;
+		}
+		#endif
+	}
+
 
 
 
