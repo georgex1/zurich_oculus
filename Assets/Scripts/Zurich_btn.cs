@@ -52,7 +52,7 @@ public class Zurich_btn : MonoBehaviour
 	private float				homeButtonDownTime = 0.0f;
 	//private HomeCommand			selectedCommand = HomeCommand.None;
 	public GameObject			videoscript;
-	
+	public string 				videoName;
 	/// <summary>
 	/// Initialization
 	/// </summary>
@@ -102,15 +102,16 @@ public class Zurich_btn : MonoBehaviour
 	}
 
 	private void positionVideo(){
-		/*Vector3 offset = (cameraController.centerEyeAnchor.forward * distanceFromViewer);
+		showVideo (true);
+
+		Vector3 offset = (cameraController.centerEyeAnchor.forward * distanceFromViewer);
 		offset.y = (transform.position.y - cameraController.centerEyeAnchor.position.y);
 
 		videoscript.transform.position = cameraController.centerEyeAnchor.position + offset;
 		Vector3 dirToCamera = (cameraController.centerEyeAnchor.position - transform.position);
 		dirToCamera.y = 0.0f;
 		videoscript.transform.forward = dirToCamera.normalized;
-*/
-		showVideo (true);
+		videoscript.transform.Rotate ( 0f, 180f, 0f );
 		//videoscript
 	}
 
@@ -325,7 +326,7 @@ public class Zurich_btn : MonoBehaviour
 							//videoscript = button_.transform.FindChild("MovieSurface").gameObject;
 							positionVideo();
 							if(videoscript.activeSelf){
-								videoscript.GetComponent<Zurich_MoviePlayer>().DelayedStartVideo();
+								videoscript.GetComponent<Zurich_MoviePlayer>().DelayedStartVideo( videoName );
 							}
 						}
 					}
