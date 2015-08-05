@@ -1040,7 +1040,7 @@ MonoBehaviour:
   menuHighlightSound: {fileID: 8300000, guid: 4e50e268a5a564ab79ec7803b257aa18, type: 3}
   menuClickSound: {fileID: 8300000, guid: dc7ba9f4671064bacbefc2b310ae6e5a, type: 3}
   videoscript: {fileID: 1831873163}
-  videoName: test.mp4
+  videoName: video2.mp4
 --- !u!23 &835812967
 Renderer:
   m_ObjectHideFlags: 0
@@ -1603,7 +1603,7 @@ MonoBehaviour:
   menuHighlightSound: {fileID: 8300000, guid: 4e50e268a5a564ab79ec7803b257aa18, type: 3}
   menuClickSound: {fileID: 8300000, guid: dc7ba9f4671064bacbefc2b310ae6e5a, type: 3}
   videoscript: {fileID: 1831873163}
-  videoName: test.mp4
+  videoName: video1.mp4
 --- !u!23 &1644008818
 Renderer:
   m_ObjectHideFlags: 0
