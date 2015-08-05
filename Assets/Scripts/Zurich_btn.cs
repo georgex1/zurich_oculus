@@ -99,6 +99,9 @@ public class Zurich_btn : MonoBehaviour
 
 	private void showVideo(bool toActive){
 		//videoscript.SetActive (toActive);
+		if (!toActive) {
+			videoscript.transform.position = new Vector3(0f,-10f,0f);
+		}
 	}
 
 	private void positionVideo(){
