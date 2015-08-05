@@ -102,14 +102,14 @@ public class Zurich_btn : MonoBehaviour
 	}
 
 	private void positionVideo(){
-		Vector3 offset = (cameraController.centerEyeAnchor.forward * distanceFromViewer);
+		/*Vector3 offset = (cameraController.centerEyeAnchor.forward * distanceFromViewer);
 		offset.y = (transform.position.y - cameraController.centerEyeAnchor.position.y);
 
 		videoscript.transform.position = cameraController.centerEyeAnchor.position + offset;
 		Vector3 dirToCamera = (cameraController.centerEyeAnchor.position - transform.position);
 		dirToCamera.y = 0.0f;
 		videoscript.transform.forward = dirToCamera.normalized;
-
+*/
 		showVideo (true);
 		//videoscript
 	}
