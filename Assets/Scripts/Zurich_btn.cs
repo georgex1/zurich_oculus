@@ -110,15 +110,17 @@ public class Zurich_btn : MonoBehaviour
 		if (show)
 		{
 			// orient and position in front of the player's view
-			Vector3 offset = (cameraController.centerEyeAnchor.forward * distanceFromViewer);
+			/*Vector3 offset = (cameraController.centerEyeAnchor.forward * distanceFromViewer);
 			offset.y = (transform.position.y - cameraController.centerEyeAnchor.position.y);
 			transform.position = cameraController.centerEyeAnchor.position + offset;
 			Vector3 dirToCamera = (cameraController.centerEyeAnchor.position - transform.position);
 			dirToCamera.y = 0.0f;
 			transform.forward = dirToCamera.normalized;
-			
+			*/
 			// refresh any children
 			BroadcastMessage("OnRefresh", SendMessageOptions.DontRequireReceiver);
+
+
 			// show the menu elements and play the animation
 			ShowRenderers(true);
 			//delaySecs = PlayAnim((immediate) ? menuIdleAnim : menuShowAnim);
