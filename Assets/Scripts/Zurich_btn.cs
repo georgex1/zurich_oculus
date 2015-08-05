@@ -98,7 +98,7 @@ public class Zurich_btn : MonoBehaviour
 	/// </summary>
 
 	private void showVideo(bool toActive){
-		videoscript.SetActive (toActive);
+		//videoscript.SetActive (toActive);
 	}
 
 	private void positionVideo(){
