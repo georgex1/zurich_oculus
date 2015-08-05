@@ -101,6 +101,19 @@ public class Zurich_btn : MonoBehaviour
 		videoscript.SetActive (toActive);
 	}
 
+	private void positionVideo(){
+		Vector3 offset = (cameraController.centerEyeAnchor.forward * distanceFromViewer);
+		offset.y = (transform.position.y - cameraController.centerEyeAnchor.position.y);
+
+		videoscript.transform.position = cameraController.centerEyeAnchor.position + offset;
+		Vector3 dirToCamera = (cameraController.centerEyeAnchor.position - transform.position);
+		dirToCamera.y = 0.0f;
+		videoscript.transform.forward = dirToCamera.normalized;
+
+		showVideo (true);
+		//videoscript
+	}
+
 	float Show(bool show, bool immediate = false)
 	{
 		if ((show && isVisible) || (!show && !isVisible))
@@ -115,6 +128,8 @@ public class Zurich_btn : MonoBehaviour
 		float delaySecs = 0.0f;
 		if (show)
 		{
+
+
 			// orient and position in front of the player's view
 			/*Vector3 offset = (cameraController.centerEyeAnchor.forward * distanceFromViewer);
 			offset.y = (transform.position.y - cameraController.centerEyeAnchor.position.y);
@@ -308,7 +323,7 @@ public class Zurich_btn : MonoBehaviour
 							//myObject.GetComponent<MyScript>().MyFunction();
 							Debug.Log ("le doy play al video");
 							//videoscript = button_.transform.FindChild("MovieSurface").gameObject;
-							showVideo (true);
+							positionVideo();
 							if(videoscript.activeSelf){
 								videoscript.GetComponent<Zurich_MoviePlayer>().DelayedStartVideo();
 							}
@@ -351,7 +366,7 @@ public class Zurich_btn : MonoBehaviour
 					//dejo de hacer foco en el boton
 					Debug.Log("Pongo en pausa");
 					if(videoscript.activeSelf){
-						videoscript.GetComponent<Zurich_MoviePlayer>().videoStop();
+						videoscript.GetComponent<Zurich_MoviePlayer>().videoPause();
 					}
 					showVideo (false);
 				}
