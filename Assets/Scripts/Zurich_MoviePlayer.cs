@@ -210,7 +210,7 @@ public class Zurich_MoviePlayer : MonoBehaviour
 		return mediaPlayer;
 	}
 
-	AndroidChangeVideo( string videoName_ ){
+	void AndroidChangeVideo( string videoName_ ){
 		mediaPlayer.Call("setDataSource", "/storage/extSdCard/Oculus/zurichvideos/" + videoName_);
 		mediaPlayer.Call("prepare");
 		mediaPlayer.Call("setLooping", false);
