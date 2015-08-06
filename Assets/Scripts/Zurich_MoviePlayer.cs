@@ -105,14 +105,15 @@ public class Zurich_MoviePlayer : MonoBehaviour
 				secondTime = true;
 				#if (UNITY_ANDROID && !UNITY_EDITOR)
 							// This can only be done once multithreaded rendering is running
-							mediaPlayer = StartVideoPlayerOnTextureId();
+							StartVideoPlayerOnTextureId();
 				#endif
 			} else {
 
 				#if (UNITY_ANDROID && !UNITY_EDITOR)
+					mediaPlayer.Call("start");
 					Invoke("StartVideoPlayerOnTextureId", 0.1f);
 					//mediaPlayer = StartVideoPlayerOnTextureId(nativeTextureID);
-					//mediaPlayer = AndroidChangeVideo(videoName, mediaPlayer);
+					//mediaPlayer = AndroidChangeVideo(videoName);
 					//mediaPlayer.Call("start");
 				#endif
 
@@ -190,14 +191,14 @@ public class Zurich_MoviePlayer : MonoBehaviour
 	/// <summary>
 	/// Set up the video player with the movie surface texture id
 	/// </summary>
-	AndroidJavaObject StartVideoPlayerOnTextureId()
+	void StartVideoPlayerOnTextureId()
 	{
 		int textureId = nativeTextureID;
 		Debug.Log("SetUpVideoPlayer ");
 
 		IntPtr  androidSurface = OVR_Media_Surface( textureId, 2880, 1440 );
 
-		AndroidJavaObject mediaPlayer = new AndroidJavaObject("android/media/MediaPlayer");
+		mediaPlayer = new AndroidJavaObject("android/media/MediaPlayer");
 
 		// Can't use AndroidJavaObject.Call() with a jobject, must use low level interface
 		//mediaPlayer.Call("setSurface", androidSurface);
@@ -207,24 +208,24 @@ public class Zurich_MoviePlayer : MonoBehaviour
 		parms[0].l = androidSurface;
 		AndroidJNI.CallObjectMethod(mediaPlayer.GetRawObject(), setSurfaceMethodId, parms);
 
-		mediaPlayer = AndroidChangeVideo(videoName, mediaPlayer);
+		AndroidChangeVideo(videoName);
 
 		/*mediaPlayer.Call("setDataSource", "/storage/extSdCard/Oculus/zurichvideos/" + videoName);
 		mediaPlayer.Call("prepare");
 		mediaPlayer.Call("setLooping", false);
 		mediaPlayer.Call("start");*/
 
-		return mediaPlayer;
+		//return mediaPlayer;
 	}
 
-	AndroidJavaObject AndroidChangeVideo( string videoName_, AndroidJavaObject mediaPlayer ){
+	void AndroidChangeVideo( string videoName_ ){
 		if (mediaPlayer != null){
 			mediaPlayer.Call("setDataSource", "/storage/extSdCard/Oculus/zurichvideos/" + videoName_);
 			mediaPlayer.Call("prepare");
 			mediaPlayer.Call("setLooping", false);
 			mediaPlayer.Call("start");
 		}
-		return mediaPlayer;
+		//return mediaPlayer;
 	}
 #endif
 }
