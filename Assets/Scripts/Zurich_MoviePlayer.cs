@@ -125,6 +125,7 @@ public class Zurich_MoviePlayer : MonoBehaviour
 		if (videoName != video_) {
 			videoName = video_;
 			#if (UNITY_ANDROID && !UNITY_EDITOR)
+				mediaPlayer.Call("stop");
 				AndroidChangeVideo(video_);
 			#endif
 		}
@@ -220,7 +221,6 @@ public class Zurich_MoviePlayer : MonoBehaviour
 		AndroidChangeVideo(videoName);
 
 		/*mediaPlayer.Call("setDataSource", "/storage/extSdCard/Oculus/zurichvideos/" + videoName);*/
-		mediaPlayer.Call("prepare");
 		mediaPlayer.Call("setLooping", false);
 		mediaPlayer.Call("start");
 
@@ -230,6 +230,7 @@ public class Zurich_MoviePlayer : MonoBehaviour
 	void AndroidChangeVideo( string videoName_ ){
 		if (mediaPlayer != null){
 			mediaPlayer.Call("setDataSource", "/storage/extSdCard/Oculus/zurichvideos/" + videoName_);
+			mediaPlayer.Call("prepare");
 		}
 		//return mediaPlayer;
 	}
