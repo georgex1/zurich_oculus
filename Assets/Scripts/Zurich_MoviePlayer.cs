@@ -65,7 +65,7 @@ public class Zurich_MoviePlayer : MonoBehaviour
 
 	bool	startedVideo = false;
 	bool	secondTime = false;
-
+	
 	public string videoName;
 
 #if (UNITY_ANDROID && !UNITY_EDITOR)
@@ -94,10 +94,10 @@ public class Zurich_MoviePlayer : MonoBehaviour
 	/// <summary>
 	/// Auto-starts video playback
 	/// </summary>
-	public void DelayedStartVideo(string video_)
+	public void DelayedStartVideo( )
 	{
-		videoName = video_;
-		Debug.Log ("Llamo a iniciar la reproduccion del video" + video_);
+		//videoName = video_;
+		Debug.Log ("Llamo a iniciar la reproduccion del video" + videoName);
 		if (!startedVideo)
 		{
 			startedVideo = true;
@@ -105,12 +105,13 @@ public class Zurich_MoviePlayer : MonoBehaviour
 				secondTime = true;
 				#if (UNITY_ANDROID && !UNITY_EDITOR)
 							// This can only be done once multithreaded rendering is running
-							mediaPlayer = StartVideoPlayerOnTextureId(nativeTextureID);
+							mediaPlayer = StartVideoPlayerOnTextureId();
 				#endif
 			} else {
 
 				#if (UNITY_ANDROID && !UNITY_EDITOR)
-					mediaPlayer = StartVideoPlayerOnTextureId(nativeTextureID);
+					Invoke("StartVideoPlayerOnTextureId", 0.1f);
+					//mediaPlayer = StartVideoPlayerOnTextureId(nativeTextureID);
 					//mediaPlayer = AndroidChangeVideo(videoName, mediaPlayer);
 					//mediaPlayer.Call("start");
 				#endif
@@ -189,8 +190,9 @@ public class Zurich_MoviePlayer : MonoBehaviour
 	/// <summary>
 	/// Set up the video player with the movie surface texture id
 	/// </summary>
-	AndroidJavaObject StartVideoPlayerOnTextureId(int textureId)
+	AndroidJavaObject StartVideoPlayerOnTextureId()
 	{
+		textureId = nativeTextureID;
 		Debug.Log("SetUpVideoPlayer ");
 
 		IntPtr  androidSurface = OVR_Media_Surface( textureId, 2880, 1440 );
