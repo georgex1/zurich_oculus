@@ -65,8 +65,10 @@ public class Zurich_MoviePlayer : MonoBehaviour
 
 	bool	startedVideo = false;
 	bool	secondTime = false;
-	
+
+	private GUIStyle guiStyle = new GUIStyle();
 	public string videoName;
+	private string debug_;
 
 #if (UNITY_ANDROID && !UNITY_EDITOR)
 	bool	videoPaused = false;
@@ -87,8 +89,27 @@ public class Zurich_MoviePlayer : MonoBehaviour
 		
 		// This aparently has to be done at Awake time, before
 		// multithreaded rendering starts;
-		nativeTextureID = GetComponent<Renderer>().material.mainTexture.GetNativeTextureID();
-		Debug.Log("Movie Texture id: " + nativeTextureID);
+
+		/*nativeTextureID = GetComponent<Renderer>().material.mainTexture.GetNativeTextureID();
+		Debug.Log("Movie Texture id: " + nativeTextureID);*/
+		changeRenderComp ();
+	}
+
+	void OnGUI() {
+		guiStyle.fontSize = 30; 
+		if (!System.IO.File.Exists("/storage/extSdCard/Oculus/zurichvideos/" + videoName))
+		{
+			GUI.Label (new Rect (10, 10, Screen.width, 100), "NO SE ENCONTRO /storage/extSdCard/Oculus/zurichvideos/" + videoName, guiStyle);
+		}
+
+		
+		GUI.Label (new Rect (10, 200, Screen.width, 100), "debug: "+debug_, guiStyle);
+		
+		
+		/*if (GUI.Button (new Rect (Screen.width - Screen.width*0.3f, 10, Screen.width * 0.3f, Screen.height *0.2f), "start video 1")) {
+			DelayedStartVideo( );
+		}*/
+		
 	}
 
 	/// <summary>
@@ -98,6 +119,7 @@ public class Zurich_MoviePlayer : MonoBehaviour
 	{
 		//videoName = video_;
 		Debug.Log ("Llamo a iniciar la reproduccion del video" + videoName);
+		debug_ = "Llamo a iniciar la reproduccion del video" + videoName;
 		if (!startedVideo)
 		{
 			startedVideo = true;
@@ -111,21 +133,21 @@ public class Zurich_MoviePlayer : MonoBehaviour
 
 				#if (UNITY_ANDROID && !UNITY_EDITOR)
 					mediaPlayer.Call("start");
-					//Invoke("StartVideoPlayerOnTextureId", 0.1f);
-					//mediaPlayer = StartVideoPlayerOnTextureId(nativeTextureID);
-					//mediaPlayer = AndroidChangeVideo(videoName);
-					//mediaPlayer.Call("start");
 				#endif
 
 			}
 		}
 	}
 
+	private void changeRenderComp(){
+		nativeTextureID = GetComponent<Renderer>().material.mainTexture.GetNativeTextureID();
+		Debug.Log("Movie Texture id: " + nativeTextureID);
+	}
+
 	public void changeVideo(string video_){
 		if (videoName != video_) {
 			videoName = video_;
 			#if (UNITY_ANDROID && !UNITY_EDITOR)
-				mediaPlayer.Call("stop");
 				AndroidChangeVideo(video_);
 			#endif
 		}
@@ -218,7 +240,8 @@ public class Zurich_MoviePlayer : MonoBehaviour
 		parms[0].l = androidSurface;
 		AndroidJNI.CallObjectMethod(mediaPlayer.GetRawObject(), setSurfaceMethodId, parms);
 
-		AndroidChangeVideo(videoName);
+		mediaPlayer.Call("setDataSource", "/storage/extSdCard/Oculus/zurichvideos/" + videoName);
+		mediaPlayer.Call("prepare");
 
 		/*mediaPlayer.Call("setDataSource", "/storage/extSdCard/Oculus/zurichvideos/" + videoName);*/
 		mediaPlayer.Call("setLooping", false);
@@ -229,8 +252,29 @@ public class Zurich_MoviePlayer : MonoBehaviour
 
 	void AndroidChangeVideo( string videoName_ ){
 		if (mediaPlayer != null){
+
+			mediaPlayer.Call("stop");
+
+			Destroy(gameObject.GetComponent("Renderer"));
+			changeRenderComp();
+
+			int textureId = nativeTextureID;
+			IntPtr  androidSurface = OVR_Media_Surface( textureId, 2880, 1440 );
+
+			mediaPlayer = new AndroidJavaObject("android/media/MediaPlayer");
+			IntPtr setSurfaceMethodId = AndroidJNI.GetMethodID(mediaPlayer.GetRawClass(),"setSurface","(Landroid/view/Surface;)V");
+			jvalue[] parms = new jvalue[1];
+			parms[0] = new jvalue();
+			parms[0].l = androidSurface;
+			AndroidJNI.CallObjectMethod(mediaPlayer.GetRawObject(), setSurfaceMethodId, parms);
+
+			debug_ = "cambio el video a /storage/extSdCard/Oculus/zurichvideos/" + videoName_ ;
 			mediaPlayer.Call("setDataSource", "/storage/extSdCard/Oculus/zurichvideos/" + videoName_);
+			mediaPlayer.Call("setLooping", false);
 			mediaPlayer.Call("prepare");
+
+			mediaPlayer.Call("setLooping", false);
+			mediaPlayer.Call("start");
 		}
 		//return mediaPlayer;
 	}
