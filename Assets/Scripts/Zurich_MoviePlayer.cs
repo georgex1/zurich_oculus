@@ -192,7 +192,7 @@ public class Zurich_MoviePlayer : MonoBehaviour
 	/// </summary>
 	AndroidJavaObject StartVideoPlayerOnTextureId()
 	{
-		textureId = nativeTextureID;
+		int textureId = nativeTextureID;
 		Debug.Log("SetUpVideoPlayer ");
 
 		IntPtr  androidSurface = OVR_Media_Surface( textureId, 2880, 1440 );
