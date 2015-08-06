@@ -331,7 +331,8 @@ public class Zurich_btn : MonoBehaviour
 							//videoscript = button_.transform.FindChild("MovieSurface").gameObject;
 							positionVideo();
 							if(videoscript.activeSelf){
-								videoscript.GetComponent<Zurich_MoviePlayer>().videoName = videoName;
+								videoscript.GetComponent<Zurich_MoviePlayer>().changeVideo( videoName );
+								//videoscript.GetComponent<Zurich_MoviePlayer>().videoName = videoName;
 								videoscript.GetComponent<Zurich_MoviePlayer>().DelayedStartVideo(  );
 							}
 						}
