@@ -110,7 +110,8 @@ public class Zurich_MoviePlayer : MonoBehaviour
 			} else {
 
 				#if (UNITY_ANDROID && !UNITY_EDITOR)
-					mediaPlayer = AndroidChangeVideo(videoName, mediaPlayer);
+					mediaPlayer = StartVideoPlayerOnTextureId(nativeTextureID);
+					//mediaPlayer = AndroidChangeVideo(videoName, mediaPlayer);
 					//mediaPlayer.Call("start");
 				#endif
 
