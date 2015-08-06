@@ -25,7 +25,7 @@ public class Zurich_btn : MonoBehaviour
 {
 	
 	public OVRCameraRig			cameraController = null;
-	public float				distanceFromViewer = 3.0f;
+	public float				distanceFromViewer = 4.0f;
 	public float				doubleTapDelay = 0.25f;
 	public float				longPressDelay = 0.75f;
 	public string				backButtonName = "Fire2";	
@@ -312,7 +312,7 @@ public class Zurich_btn : MonoBehaviour
 				activeButton = null;
 				RaycastHit hit = new RaycastHit();
 
-				if (button_.GetComponent<Collider>().Raycast(ray, out hit, 100.0f)){
+				if (button_.GetComponent<Collider>().Raycast(ray, out hit, 600.0f)){
 					activeButton = button_;
 					if (activeButton != lastActiveButton)
 					{
