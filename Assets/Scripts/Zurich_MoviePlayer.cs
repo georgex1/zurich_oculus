@@ -142,6 +142,7 @@ public class Zurich_MoviePlayer : MonoBehaviour
 	private void changeRenderComp(){
 		nativeTextureID = GetComponent<Renderer>().material.mainTexture.GetNativeTextureID();
 		Debug.Log("Movie Texture id: " + nativeTextureID);
+		debug_ = "Movie Texture id: " + nativeTextureID;
 	}
 
 	public void changeVideo(string video_){
@@ -243,7 +244,6 @@ public class Zurich_MoviePlayer : MonoBehaviour
 		mediaPlayer.Call("setDataSource", "/storage/extSdCard/Oculus/zurichvideos/" + videoName);
 		mediaPlayer.Call("prepare");
 
-		/*mediaPlayer.Call("setDataSource", "/storage/extSdCard/Oculus/zurichvideos/" + videoName);*/
 		mediaPlayer.Call("setLooping", false);
 		mediaPlayer.Call("start");
 
@@ -255,10 +255,10 @@ public class Zurich_MoviePlayer : MonoBehaviour
 
 			mediaPlayer.Call("stop");
 
-			Destroy(gameObject.GetComponent("Renderer"));
-			changeRenderComp();
+			//Destroy(gameObject.GetComponent("Renderer"));
+			//changeRenderComp();
 
-			int textureId = nativeTextureID;
+			/*int textureId = nativeTextureID;
 			IntPtr  androidSurface = OVR_Media_Surface( textureId, 2880, 1440 );
 
 			mediaPlayer = new AndroidJavaObject("android/media/MediaPlayer");
@@ -267,13 +267,12 @@ public class Zurich_MoviePlayer : MonoBehaviour
 			parms[0] = new jvalue();
 			parms[0].l = androidSurface;
 			AndroidJNI.CallObjectMethod(mediaPlayer.GetRawObject(), setSurfaceMethodId, parms);
-
+*/
 			debug_ = "cambio el video a /storage/extSdCard/Oculus/zurichvideos/" + videoName_ ;
 			mediaPlayer.Call("setDataSource", "/storage/extSdCard/Oculus/zurichvideos/" + videoName_);
 			mediaPlayer.Call("setLooping", false);
 			mediaPlayer.Call("prepare");
 
-			mediaPlayer.Call("setLooping", false);
 			mediaPlayer.Call("start");
 		}
 		//return mediaPlayer;
