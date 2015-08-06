@@ -254,6 +254,7 @@ public class Zurich_MoviePlayer : MonoBehaviour
 		if (mediaPlayer != null){
 
 			mediaPlayer.Call("stop");
+			mediaPlayer.Call("reset");
 
 			//Destroy(gameObject.GetComponent("Renderer"));
 			//changeRenderComp();
