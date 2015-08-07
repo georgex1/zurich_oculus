@@ -8,7 +8,6 @@ PlayerSettings:
   defaultScreenOrientation: 3
   targetDevice: 2
   targetGlesGraphics: 1
-  targetIOSGraphics: -1
   targetResolution: 0
   accelerometerFrequency: 60
   companyName: test video
@@ -73,7 +72,6 @@ PlayerSettings:
   metroEnableLowLatencyPresentationAPI: 0
   productGUID: 70a4850d885a449d5bebe13f318b89e5
   iPhoneBundleVersion: 1.0
-  iPhoneShortBundleVersion: 1.0
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 19
   AndroidPreferredInstallLocation: 2
@@ -103,15 +101,6 @@ PlayerSettings:
   iPadHighResPortraitSplashScreen: {fileID: 0}
   iPadLandscapeSplashScreen: {fileID: 0}
   iPadHighResLandscapeSplashScreen: {fileID: 0}
-  iOSLaunchScreenType: 0
-  iOSLaunchScreenPortrait: {fileID: 0}
-  iOSLaunchScreenLandscape: {fileID: 0}
-  iOSLaunchScreenBackgroundColor:
-    serializedVersion: 2
-    rgba: 4281351727
-  iOSLaunchScreenFillPct: 100
-  iOSLaunchScreenSize: 100
-  iOSLaunchScreenCustomXibPath: 
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 2
   AndroidKeystoreName: 

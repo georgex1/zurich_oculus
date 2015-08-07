@@ -91,6 +91,7 @@ public class Zurich_btn : MonoBehaviour
 		//animator[ menuHideAnim ].layer = 2;
 		// hide the menu to start
 		ShowRenderers( false );
+
 	}
 	
 	/// <summary>
