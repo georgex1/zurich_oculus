@@ -25,7 +25,7 @@ public class Zurich_btn : MonoBehaviour
 {
 	
 	public OVRCameraRig			cameraController = null;
-	public float				distanceFromViewer = 4.0f;
+	public float				distanceFromViewer = 6.0f;
 	public float				doubleTapDelay = 0.25f;
 	public float				longPressDelay = 0.75f;
 	public string				backButtonName = "Fire2";	
@@ -53,6 +53,12 @@ public class Zurich_btn : MonoBehaviour
 	//private HomeCommand			selectedCommand = HomeCommand.None;
 	public GameObject			videoscript;
 	public string 				videoName;
+	public float				diferenceY = 0f;
+
+	private float loadTime = 0f;
+	private float actVideoScaleX = 0f;
+	private float actVideoScaleY = 0f;
+	private bool changeVideoScale = false;
 	/// <summary>
 	/// Initialization
 	/// </summary>
@@ -101,13 +107,43 @@ public class Zurich_btn : MonoBehaviour
 	private void showVideo(bool toActive){
 		//videoscript.SetActive (toActive);
 		if (!toActive) {
+			changeVideoScale = false;
+			actVideoScaleX = 0f;
+			actVideoScaleY = 0f;
+
 			videoscript.transform.position = new Vector3(0f,-10f,0f);
+			changeVideoScaleFc("X");
+			changeVideoScaleFc("Y");
 		}
+	}
+
+	private void changeVideoScaleFc(string wchange){
+
+		Vector3 scale = videoscript.transform.localScale;
+		if (wchange == "Y") {
+			scale.y = actVideoScaleY; // your new value
+		}
+		if (wchange == "X") {
+			scale.x = actVideoScaleX; // your new value
+		}
+
+		videoscript.transform.localScale = scale;
 	}
 
 	private void positionVideo(){
 		showVideo (true);
 
+		Vector3 offset = (cameraController.centerEyeAnchor.forward * distanceFromViewer);
+		offset.y = (transform.position.y - cameraController.centerEyeAnchor.position.y - diferenceY);
+		videoscript.transform.position = cameraController.centerEyeAnchor.position + offset;
+		Vector3 dirToCamera = (cameraController.centerEyeAnchor.position - transform.position);
+		dirToCamera.y = 0.0f;
+		videoscript.transform.forward = dirToCamera.normalized;
+		videoscript.transform.Rotate ( 0f, 180f, 0f );
+
+		changeVideoScale = true;
+
+		/*
 		Vector3 offset = (cameraController.centerEyeAnchor.forward * distanceFromViewer);
 		offset.y = (transform.position.y - cameraController.centerEyeAnchor.position.y);
 
@@ -116,7 +152,7 @@ public class Zurich_btn : MonoBehaviour
 		dirToCamera.y = 0.0f;
 		videoscript.transform.forward = dirToCamera.normalized;
 		videoscript.transform.Rotate ( 0f, 180f, 0f );
-
+		 */
 
 		//videoscript
 	}
@@ -246,6 +282,16 @@ public class Zurich_btn : MonoBehaviour
 	/// </summary>
 	void Update()
 	{
+
+		if(changeVideoScale && actVideoScaleX < 7){
+			actVideoScaleX += Time.deltaTime * 17f;
+			changeVideoScaleFc("X");
+		}
+		if(changeVideoScale && actVideoScaleY < 3.7){
+			actVideoScaleY += Time.deltaTime * 9f;
+			changeVideoScaleFc("Y");
+		}
+
 		if (!isVisible)
 		{
 			//habilito el menu desde el momento de inicio.
