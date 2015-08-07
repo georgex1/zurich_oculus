@@ -250,9 +250,9 @@ public class shaderGlow : MonoBehaviour {
 			if(flashing) {
 				if(flashDirectionUp) {
 					flashPosition+=flashSpeed*Time.deltaTime;
-					if(flashPosition>1.2f) {
+					if(flashPosition>2f) {
 						flashDirectionUp=false;
-						flashPosition=1.2f;
+						flashPosition=2f;
 					}
 				}
 				else {
