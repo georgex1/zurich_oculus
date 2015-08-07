@@ -229,7 +229,8 @@ public class Zurich_MoviePlayer : MonoBehaviour
 		int textureId = nativeTextureID;
 		Debug.Log("SetUpVideoPlayer ");
 
-		IntPtr  androidSurface = OVR_Media_Surface( textureId, 2880, 1440 );
+		//IntPtr  androidSurface = OVR_Media_Surface( textureId, 2880, 1440 );
+		IntPtr  androidSurface = OVR_Media_Surface( textureId, 1920, 1080 );
 
 		mediaPlayer = new AndroidJavaObject("android/media/MediaPlayer");
 
@@ -260,7 +261,8 @@ public class Zurich_MoviePlayer : MonoBehaviour
 			//changeRenderComp();
 
 			/*int textureId = nativeTextureID;
-			IntPtr  androidSurface = OVR_Media_Surface( textureId, 2880, 1440 );
+			//IntPtr  androidSurface = OVR_Media_Surface( textureId, 2880, 1440 );
+			IntPtr  androidSurface = OVR_Media_Surface( textureId, 1920, 1080 );
 
 			mediaPlayer = new AndroidJavaObject("android/media/MediaPlayer");
 			IntPtr setSurfaceMethodId = AndroidJNI.GetMethodID(mediaPlayer.GetRawClass(),"setSurface","(Landroid/view/Surface;)V");
