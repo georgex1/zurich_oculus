@@ -59,6 +59,7 @@ public class Zurich_btn : MonoBehaviour
 	private float actVideoScaleX = 0f;
 	private float actVideoScaleY = 0f;
 	private bool changeVideoScale = false;
+	private bool wait = true;
 	/// <summary>
 	/// Initialization
 	/// </summary>
@@ -104,8 +105,14 @@ public class Zurich_btn : MonoBehaviour
 	/// Shows and hides the menu
 	/// </summary>
 
+
+
+
 	private void showVideo(bool toActive){
 		//videoscript.SetActive (toActive);
+
+
+
 		if (!toActive) {
 			changeVideoScale = false;
 			actVideoScaleX = 0f;
@@ -114,7 +121,13 @@ public class Zurich_btn : MonoBehaviour
 			videoscript.transform.position = new Vector3(0f,-10f,0f);
 			changeVideoScaleFc("X");
 			changeVideoScaleFc("Y");
-		}
+			}
+	}
+
+	IEnumerator loadingVideo() {
+		Debug.Log ("entro a la pausa");
+		wait = false;
+		yield return new WaitForSeconds(5);
 	}
 
 	private void changeVideoScaleFc(string wchange){
@@ -443,6 +456,7 @@ public class Zurich_btn : MonoBehaviour
 	
 	void DelayedShowMenu()
 	{
+
 		Show(true);
 	}
 	
