@@ -1,5 +1,26 @@
 fileFormatVersion: 2
 guid: a88a26a276b4e47619ce2c5adad33fab
+labels:
+- Hardsurface
+- Lowpoly
+- Prop
+- Props
+- Buildings
+- Building
+- Mobile
+- Japan
+- House
+- Construction
+- Skyscraper
+- Highrise
+- Apartment
+- Tower
+- City
+- Town
+- Matropoly
+- Banners
+- Signs
+- Trafficlights
 MonoImporter:
   serializedVersion: 2
   defaultReferences:

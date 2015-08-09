@@ -126,8 +126,29 @@ public class Zurich_btn : MonoBehaviour
 
 	IEnumerator loadingVideo() {
 		Debug.Log ("entro a la pausa");
-		wait = false;
-		yield return new WaitForSeconds(5);
+		yield return new WaitForSeconds(2);
+		Debug.Log ("esperando los 5 segundos");
+		//wait = false;
+
+		if ((activeButton == null) /*&& (lastActiveButton != null)*/)
+		{
+			Debug.Log("Pongo en pausa");
+			if(videoscript.activeSelf){
+				videoscript.GetComponent<Zurich_MoviePlayer>().videoPause();
+			}
+			showVideo (false);
+		} else {
+
+
+
+		positionVideo();
+		if(videoscript.activeSelf){
+			videoscript.GetComponent<Zurich_MoviePlayer>().changeVideo( videoName );
+			//videoscript.GetComponent<Zurich_MoviePlayer>().videoName = videoName;
+			videoscript.GetComponent<Zurich_MoviePlayer>().DelayedStartVideo(  );
+		}
+		}
+
 	}
 
 	private void changeVideoScaleFc(string wchange){
@@ -144,7 +165,10 @@ public class Zurich_btn : MonoBehaviour
 	}
 
 	private void positionVideo(){
-		showVideo (true);
+
+
+		Debug.Log ("entro a positionvideo");
+		//showVideo (true);
 
 		Vector3 offset = (cameraController.centerEyeAnchor.forward * distanceFromViewer);
 		offset.y = (transform.position.y - cameraController.centerEyeAnchor.position.y - diferenceY);
@@ -181,7 +205,7 @@ public class Zurich_btn : MonoBehaviour
 			}
 			return 0.0f;
 		}
-		float delaySecs = 0.0f;
+		float delaySecs = 5;
 		if (show)
 		{
 
@@ -389,12 +413,15 @@ public class Zurich_btn : MonoBehaviour
 							//myObject.GetComponent<MyScript>().MyFunction();
 							Debug.Log ("le doy play al video");
 							//videoscript = button_.transform.FindChild("MovieSurface").gameObject;
-							positionVideo();
-							if(videoscript.activeSelf){
-								videoscript.GetComponent<Zurich_MoviePlayer>().changeVideo( videoName );
-								//videoscript.GetComponent<Zurich_MoviePlayer>().videoName = videoName;
-								videoscript.GetComponent<Zurich_MoviePlayer>().DelayedStartVideo(  );
-							}
+							Debug.Log ("Pauso por 5 segundos");
+							StartCoroutine(loadingVideo());
+							/*	positionVideo();
+								if(videoscript.activeSelf){
+									videoscript.GetComponent<Zurich_MoviePlayer>().changeVideo( videoName );
+									//videoscript.GetComponent<Zurich_MoviePlayer>().videoName = videoName;
+									videoscript.GetComponent<Zurich_MoviePlayer>().DelayedStartVideo(  );
+								} */
+							
 						}
 					}
 					//break;
@@ -457,7 +484,8 @@ public class Zurich_btn : MonoBehaviour
 	void DelayedShowMenu()
 	{
 
-		Show(true);
+			Show (true);
+
 	}
 	
 	/// <summary>
