@@ -68,9 +68,6 @@ public class Zurich_btn : MonoBehaviour
 	void Awake()
 	{
 
-		zurich_loading = GameObject.Find ("zurich_loading");
-		showLoading (false);
-
 		showVideo (false);
 		button_ = gameObject;
 		if (cameraController == null)
@@ -106,24 +103,33 @@ public class Zurich_btn : MonoBehaviour
 		ShowRenderers( false );
 
 	}
-	
+
+	void Start(){
+		zurich_loading = GameObject.Find ("zurich_loading");
+		showLoading (false);
+	}
+
 	/// <summary>
 	/// Shows and hides the menu
 	/// </summary>
 
 	private void showLoading(bool showLoading_){
 		if (zurich_loading.activeSelf && !showLoading_) {
-			/*Vector3 loadV = zurich_loading.transform.position;
-			loadV.z = 90;
-			zurich_loading.transform.position = loadV;
-*/
-			zurich_loading.SetActive (false);
+			//zurich_loading.transform.position = new Vector3(-20f,-20f,-40f);
+			//zurich_loading.SetActive (false);
+			zurich_loading.GetComponent<SpriteRenderer>().enabled = false;
 		}
 		if (showLoading_) {
-			zurich_loading.SetActive (true);
-			/*Vector3 loadV = zurich_loading.transform.position;
-			loadV.z = 5;
-			zurich_loading.transform.position = loadV;*/
+			Debug.Log("show loading");
+			//zurich_loading.SetActive (true);
+			zurich_loading.GetComponent<SpriteRenderer>().enabled = true;
+
+			/*Vector3 offset = (cameraController.centerEyeAnchor.forward * distanceFromViewer);
+			offset.y = (transform.position.y - cameraController.centerEyeAnchor.position.y - diferenceY);
+			zurich_loading.transform.position = cameraController.centerEyeAnchor.position + offset;
+			Vector3 dirToCamera = (cameraController.centerEyeAnchor.position - transform.position);
+			dirToCamera.y = 0.0f;
+			zurich_loading.transform.forward = dirToCamera.normalized;*/
 		}
 	}
 
