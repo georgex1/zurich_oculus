@@ -174,7 +174,8 @@ public class shaderGlow : MonoBehaviour {
 			y = Event.current.mousePosition.y-20;
 		}
 		else {
-			Vector3 pos=Camera.main.WorldToScreenPoint(renderer.bounds.center);
+			//Vector3 pos=Camera.main.WorldToScreenPoint(renderer.bounds.center);
+			Vector3 pos=GameObject.Find ("OVRPlayerController").transform.position;
 			x=pos.x-150;
 			y=Screen.height-pos.y;
 		}

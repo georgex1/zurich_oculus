@@ -60,11 +60,17 @@ public class Zurich_btn : MonoBehaviour
 	private float actVideoScaleY = 0f;
 	private bool changeVideoScale = false;
 	private bool wait = true;
+
+	private GameObject zurich_loading;
 	/// <summary>
 	/// Initialization
 	/// </summary>
 	void Awake()
 	{
+
+		zurich_loading = GameObject.Find ("zurich_loading");
+		showLoading (false);
+
 		showVideo (false);
 		button_ = gameObject;
 		if (cameraController == null)
@@ -105,7 +111,21 @@ public class Zurich_btn : MonoBehaviour
 	/// Shows and hides the menu
 	/// </summary>
 
-
+	private void showLoading(bool showLoading_){
+		if (zurich_loading.activeSelf && !showLoading_) {
+			/*Vector3 loadV = zurich_loading.transform.position;
+			loadV.z = 90;
+			zurich_loading.transform.position = loadV;
+*/
+			zurich_loading.SetActive (false);
+		}
+		if (showLoading_) {
+			zurich_loading.SetActive (true);
+			/*Vector3 loadV = zurich_loading.transform.position;
+			loadV.z = 5;
+			zurich_loading.transform.position = loadV;*/
+		}
+	}
 
 
 	private void showVideo(bool toActive){
@@ -143,6 +163,7 @@ public class Zurich_btn : MonoBehaviour
 
 		positionVideo();
 		if(videoscript.activeSelf){
+			showLoading(false);
 			videoscript.GetComponent<Zurich_MoviePlayer>().changeVideo( videoName );
 			//videoscript.GetComponent<Zurich_MoviePlayer>().videoName = videoName;
 			videoscript.GetComponent<Zurich_MoviePlayer>().DelayedStartVideo(  );
@@ -413,6 +434,8 @@ public class Zurich_btn : MonoBehaviour
 							//myObject.GetComponent<MyScript>().MyFunction();
 							Debug.Log ("le doy play al video");
 							//videoscript = button_.transform.FindChild("MovieSurface").gameObject;
+							showLoading(true);
+
 							Debug.Log ("Pauso por 5 segundos");
 							StartCoroutine(loadingVideo());
 							/*	positionVideo();
@@ -462,6 +485,7 @@ public class Zurich_btn : MonoBehaviour
 					Debug.Log("Pongo en pausa");
 					if(videoscript.activeSelf){
 						videoscript.GetComponent<Zurich_MoviePlayer>().videoPause();
+						showLoading(false);
 					}
 					showVideo (false);
 				}
