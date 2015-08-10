@@ -103,7 +103,7 @@ public class Zurich_MoviePlayer : MonoBehaviour
 		}
 
 		
-		GUI.Label (new Rect (10, 200, Screen.width, 100), "debug: "+debug_, guiStyle);
+		//GUI.Label (new Rect (10, 200, Screen.width, 100), "debug: "+debug_, guiStyle);
 		
 		
 		/*if (GUI.Button (new Rect (Screen.width - Screen.width*0.3f, 10, Screen.width * 0.3f, Screen.height *0.2f), "start video 1")) {
@@ -243,6 +243,7 @@ public class Zurich_MoviePlayer : MonoBehaviour
 		AndroidJNI.CallObjectMethod(mediaPlayer.GetRawObject(), setSurfaceMethodId, parms);
 
 		mediaPlayer.Call("setDataSource", "/storage/extSdCard/Oculus/zurichvideos/" + videoName);
+		//mediaPlayer.Call("setDataSource", "/storage/sdcard0/zurichvideos/" + videoName);
 		mediaPlayer.Call("prepare");
 
 		mediaPlayer.Call("setLooping", false);
@@ -273,6 +274,8 @@ public class Zurich_MoviePlayer : MonoBehaviour
 */
 			debug_ = "cambio el video a /storage/extSdCard/Oculus/zurichvideos/" + videoName_ ;
 			mediaPlayer.Call("setDataSource", "/storage/extSdCard/Oculus/zurichvideos/" + videoName_);
+			//mediaPlayer.Call("setDataSource", "/storage/sdcard0/zurichvideos/" + videoName_);
+
 			mediaPlayer.Call("setLooping", false);
 			mediaPlayer.Call("prepare");
 

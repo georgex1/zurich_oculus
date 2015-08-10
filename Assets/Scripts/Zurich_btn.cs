@@ -124,14 +124,8 @@ public class Zurich_btn : MonoBehaviour
 			//zurich_loading.SetActive (true);
 			zurich_loading.GetComponent<SpriteRenderer>().enabled = true;
 
-			/*Vector3 offset = (cameraController.centerEyeAnchor.forward * distanceFromViewer);
-			offset.y = (transform.position.y - cameraController.centerEyeAnchor.position.y - diferenceY);
-			zurich_loading.transform.position = cameraController.centerEyeAnchor.position + offset;
-			Vector3 dirToCamera = (cameraController.centerEyeAnchor.position - transform.position);
-			dirToCamera.y = 0.0f;
-			zurich_loading.transform.forward = dirToCamera.normalized;*/
 		}
-	}
+	} 
 
 
 	private void showVideo(bool toActive){
@@ -332,12 +326,12 @@ public class Zurich_btn : MonoBehaviour
 	/// </summary>
 	void PlaySound(AudioClip soundClip)
 	{
-		if (soundClip == null)
+	/*	if (soundClip == null)
 		{
 			return;
 		}
 		audioEmitter.clip = soundClip;
-		audioEmitter.Play();
+		audioEmitter.Play(); */
 	}
 	
 	/// <summary>
